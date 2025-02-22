@@ -71,4 +71,14 @@ contract AdvancedCollectible is
 
         _setTokenURI(tokenId, _tokenURI);
     }
+
+    // Function to withdraw Ether from the contract
+    function withdraw() public onlyOwner {
+        uint256 balance = address(this).balance;
+        require(balance > 0, "No balance to withdraw");
+        payable(owner()).transfer(balance);
+    }
+
+    // Fallback function to receive Ether
+    receive() external payable {}
 }
